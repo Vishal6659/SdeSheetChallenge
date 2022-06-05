@@ -1,0 +1,81 @@
+#include <bits/stdc++.h> 
+void setZeros(vector<vector<int>> &matrix)
+{
+	int n = matrix.size(); // size of row
+    int m = matrix[0].size(); // size of column
+    
+    bool row = false, col = false; // row & doesn't conntains 0, hence false
+    
+    //iterating on first row and column to check if it contains 0 or not
+    for(int i = 0; i<n; i++)
+    {
+        if(matrix[i][0] == 0)
+        {
+            col = true;
+        }
+    }
+    
+    for(int j = 0; j<m; j++)
+    {
+        if(matrix[0][j] == 0)
+        {
+            row = true;
+        }
+    }
+    
+    //Now let's work for the inner matrix
+    //if any element in inside matrix is 0, mark 0 in outer matrix correspondint to it
+    for(int i = 1; i<n; i++)
+    {
+        for(int j = 1; j<m; j++)
+        {
+            if(matrix[i][j] == 0)
+            {
+                matrix[i][0] = 0;
+                matrix[0][j] = 0;
+            }
+        }
+    }
+    
+    //Now travel the elements leaving the 0 row and 0 col
+    //traveling the row, to convert col into 0
+    for(int i = 1; i<n; i++)
+    {
+        if(matrix[i][0] == 0)
+        {
+            for(int j = 0; j<m; j++)
+            {
+                matrix[i][j] = 0;
+            }
+        }
+    }
+    //traveling the col, to convert row into 0
+    for(int j = 1; j<m; j++)
+    {
+        if(matrix[0][j] == 0)
+        {
+            for(int i = 0; i<n; i++)
+            {
+                matrix[i][j] = 0;
+            }
+        }
+    }
+    // check if row or col are true or not
+    // checking for 0th row
+    if(row)
+    {
+       for(int j = 0; j<m; j++) 
+       {
+            matrix[0][j] = 0;
+       }  
+    }
+    //checking for oth col
+    if(col)
+    {
+        for(int i = 0; i<n; i++)
+        {
+            matrix[i][0] = 0;
+        }
+    }
+   
+}
